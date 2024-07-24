@@ -8,6 +8,9 @@
 // @license      CC BY-NC-ND 4.0; https://creativecommons.org/licenses/by-nc-nd/4.0/
 
 // @grant        none
+
+// @updateURL    https://github.com/SteveStone77/Download_Name_Fixer_for_CRM_Microsoft/raw/main/Download%20Name%20Fixer%20for%20CRM%20Microsoft.user.js
+// @downloadURL  https://github.com/SteveStone77/Download_Name_Fixer_for_CRM_Microsoft/raw/main/Download%20Name%20Fixer%20for%20CRM%20Microsoft.user.js
 // ==/UserScript==
 
 (function() {
