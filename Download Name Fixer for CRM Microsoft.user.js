@@ -26,6 +26,14 @@
         return str;
     }
 
+    function getDownloadUrl(baseUrl, parameters) {
+        const url = new URL(baseUrl, window.location.origin);
+        for (const [key, value] of Object.entries(parameters)) {
+            if (value) url.searchParams.append(key, value);
+        }
+        return url.toString();
+    }
+
     // Function to process the file download with corrected filename
     function processFile(url, filename) {
         // Remove quotes from the filename
