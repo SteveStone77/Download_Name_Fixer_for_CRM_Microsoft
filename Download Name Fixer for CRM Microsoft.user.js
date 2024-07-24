@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Download Name Fixer for CRM Microsoft
 // @namespace    http://tampermonkey.net/
-// @version      1.0
+// @version      1.1
 // @description  Intercept downloads and remove quotes from the filename before saving the file
 // @author       Steve Stone
 // @copyright    2024 [Steve Stone Dev]
@@ -72,16 +72,25 @@
                 let url = target.href;
                 processFile(url, filename);
             }
-//         } else if (target.id === 'crmAttachment' || target.closest('#crmAttachment')) {
-//             //console.log('Tipo download: crmAttachment')
-//             let spanTarget = target.id === 'crmAttachment' ? target : target.closest('#crmAttachment');
-//             let filename = spanTarget.textContent.trim();
-//             let url = spanTarget.getAttribute('url');
-//             if (filename && url) {
-//                 event.preventDefault();
-//                 event.stopPropagation();
-//                 processFile(url, filename);
-//             }
+        } else if (target.id === 'crmAttachment' || target.closest('#crmAttachment')) {
+            console.log('Tipo download: crmAttachment');
+            let spanTarget = target.id === 'crmAttachment' ? target : target.closest('#crmAttachment');
+            let filename = spanTarget.textContent.trim();
+            let url = spanTarget.getAttribute('url');
+
+            // Aggiungi i parametri necessari per costruire l'URL completo
+            const parameters = {
+                AttachmentType: spanTarget.getAttribute('attachmenttype'),
+                AttachmentId: spanTarget.getAttribute('attachmentid'),
+                IsNotesTabAttachment: 'null'
+            };
+
+            if (filename && url) {
+                const fullUrl = getDownloadUrl(url, parameters);
+                event.preventDefault();
+                event.stopPropagation();
+                processFile(fullUrl, filename);
+            }
         }
     }, true);
 })();
